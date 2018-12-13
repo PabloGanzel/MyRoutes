@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">Маршрутник</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_edit">Редактировать</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="startDay">Начать день</string>
+    <string name="kilometrageOnBeginningDay">Пробег на начало дня</string>
+    <string name="km">км.</string>
+    <string name="route_closed">Маршрут завершен</string>
+    <string name="closeDay">Завершить день</string>
+    <string name="new_route">Новый маршрут</string>
+    <string name="route_open">Маршрут открыт</string>
+    <string name="close_route">Завершить маршрут</string>
+
+    <string name="delete">Удалить</string>
+    <string name="export">Экспорт</string>
+    <string name="startPoint">Адрес отправления</string>
+    <string name="endPoint">Адрес прибытия</string>
+    <string name="startTime">Время выезда</string>
+    <string name="endTime">Время приезда</string>
+    <string name="length">Расстояние</string>
+    <string name="kilometrage">Пробег</string>
+    <string name="title_activity_editor">EditorActivity</string>
+    <string name="deleted">Удалено</string>
+    <string name="choice_objects_for_deleting">Выберите объекты для удаления</string>
+    <string name="choice_objects_for_exporting">Выберите объекты для экспорта</string>
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
+</resources>

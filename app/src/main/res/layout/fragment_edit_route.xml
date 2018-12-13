@@ -1,0 +1,199 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.pablo.myroutes.EditRouteFragment">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <EditText
+            android:id="@+id/editTextEndTime"
+            android:layout_width="55dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="122dp"
+            android:layout_marginTop="10dp"
+            android:ems="10"
+            android:inputType="time"
+            android:text="12:50"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView6"
+            android:layout_marginEnd="122dp"
+            android:visibility="invisible"/>
+
+        <TextView
+            android:id="@+id/textViewEndTime"
+            android:layout_width="55dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="time"
+            android:text="22:58"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView5"
+            android:layout_marginLeft="141dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="141dp" />
+
+        <AutoCompleteTextView
+            android:id="@+id/editTextStartAddress"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="10dp"
+            android:ems="10"
+            android:inputType="textMultiLine|textPostalAddress"
+            android:textSize="14sp"
+            app:layout_constraintHorizontal_bias="0.164"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:dropDownWidth="match_parent"
+            android:dropDownHeight="wrap_content"/>
+
+        <AutoCompleteTextView
+            android:id="@+id/editTextEndAddress"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:layout_marginTop="10dp"
+            app:layout_constraintTop_toBottomOf="@+id/textView4"
+            android:layout_marginLeft="16dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginRight="8dp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintHorizontal_bias="0.084"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:dropDownWidth="match_parent"
+            android:dropDownHeight="wrap_content"
+            android:inputType="textMultiLine|textPostalAddress"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/startPoint"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="8dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginRight="8dp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintHorizontal_bias="0.05"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/endPoint"
+            android:layout_marginTop="20dp"
+            app:layout_constraintTop_toBottomOf="@+id/editTextStartAddress"
+            android:layout_marginLeft="8dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginRight="8dp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintHorizontal_bias="0.05"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/startTime"
+            android:layout_marginTop="20dp"
+            app:layout_constraintTop_toBottomOf="@+id/editTextEndAddress"
+            android:layout_marginLeft="23dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginStart="23dp" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/endTime"
+            android:layout_marginRight="75dp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBaseline_toBaselineOf="@+id/textView5"
+            android:layout_marginEnd="75dp" />
+
+        <EditText
+            android:id="@+id/editTextStartTime"
+            android:layout_width="55dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="23dp"
+            android:layout_marginTop="10dp"
+            android:ems="10"
+            android:inputType="time"
+            android:text="12:50"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView5"
+            android:layout_marginStart="23dp"
+            android:visibility="invisible"/>
+
+        <TextView
+            android:id="@+id/textViewStartTime"
+            android:layout_width="55dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="22dp"
+            android:layout_marginTop="20dp"
+            android:text="12:00"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView5"
+            android:layout_marginStart="22dp" />
+
+        <Button
+            android:id="@+id/buttonOk"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="8dp"
+            android:text="ок"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp" />
+
+        <EditText
+            android:id="@+id/editTextLength"
+            android:layout_width="55dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="122dp"
+            android:ems="10"
+            android:inputType="number"
+            app:layout_constraintBaseline_toBaselineOf="@+id/textView9"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginEnd="122dp" />
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/length"
+            android:layout_marginTop="20dp"
+            app:layout_constraintTop_toBottomOf="@+id/editTextStartTime"
+            android:layout_marginLeft="23dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginStart="23dp" />
+
+
+
+    </android.support.constraint.ConstraintLayout>
+</FrameLayout>
