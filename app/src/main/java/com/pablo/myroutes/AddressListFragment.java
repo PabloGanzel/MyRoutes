@@ -92,7 +92,6 @@ public class AddressListFragment extends ListFragment {
             AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
 
             alert.setTitle("Редактировать");
-            //alert.setMessage("Message");
 
             final EditText input = new EditText(getContext());
             input.setText(AppData.addressList.get(position));
@@ -129,8 +128,6 @@ public class AddressListFragment extends ListFragment {
                 }
             }
         }
-        //} catch (Exception ignored) {
-        //}
     }
 
     @Override
@@ -142,7 +139,6 @@ public class AddressListFragment extends ListFragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        //this.context = context;
     }
 
     @Override
@@ -203,7 +199,6 @@ public class AddressListFragment extends ListFragment {
         AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
 
         alert.setTitle("Новый адрес");
-        //alert.setMessage("Message");
 
         final EditText input = new EditText(getContext());
         //input.setText(AppData.addressList.get(position));

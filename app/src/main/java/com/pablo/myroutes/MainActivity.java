@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements IFragmentsInterac
         try {
             AppData.routingDay = (RoutingDay) Helper.getObjectByTag(AppData.CURRENT_DAY_TAG, getBaseContext());//routingDay = (RoutingDay) deSerializeObject(CURRENT_DAY_TAG);
 
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
 
         try {
@@ -125,7 +125,7 @@ public class MainActivity extends AppCompatActivity implements IFragmentsInterac
             startActivity(intent);
             return true;
         }
-        //TODO: backup с сохранением по файлам
+
         if (id == R.id.save) {
             try {
                 Backup.saveData(new Object[]{AppData.routingDaysList, AppData.routingDay, AppData.route, AppData.addressList});
@@ -135,7 +135,7 @@ public class MainActivity extends AppCompatActivity implements IFragmentsInterac
             }
             return true;
         }
-        //TODO: restore с выбором файлов
+
         if (id == R.id.restore) {
             final String[] filesNames = Backup.getFiles();
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -144,13 +144,10 @@ public class MainActivity extends AppCompatActivity implements IFragmentsInterac
                         public void onClick(DialogInterface dialog, int which) {
                             try {
                                 Object[] objects = Backup.restore(which);
-                                if (objects[0] != null)
-                                    AppData.routingDaysList = (ArrayList<RoutingDay>) objects[0];
-                                if (objects[1] != null)
-                                    AppData.routingDay = (RoutingDay) objects[1];
+                                if (objects[0] != null) AppData.routingDaysList = (ArrayList<RoutingDay>) objects[0];
+                                if (objects[1] != null) AppData.routingDay = (RoutingDay) objects[1];
                                 if (objects[2] != null) AppData.route = (Route) objects[2];
-                                if (objects[3] != null)
-                                    AppData.addressList = (ArrayList<String>) objects[3];
+                                if (objects[3] != null) AppData.addressList = (ArrayList<String>) objects[3];
 
                                 Helper.saveObject(AppData.routingDay, AppData.CURRENT_DAY_TAG, getBaseContext());
                                 Helper.saveObject(AppData.route, AppData.CURRENT_ROUTE_TAG, getBaseContext());
@@ -169,22 +166,8 @@ public class MainActivity extends AppCompatActivity implements IFragmentsInterac
                     });
             builder.create().show();
 
-//                Object[] objects = Helper.restore();
-//                if(objects[0]!=null) AppData.routingDaysList = (ArrayList<RoutingDay>)objects[0];
-//                if(objects[1]!=null) AppData.routingDay = (RoutingDay)objects[1];
-//                if(objects[2]!=null) AppData.route = (Route)objects[2];
-//                if(objects[3]!=null) AppData.addressList = (ArrayList<String>)objects[3];
-//
-//                Helper.saveObject(AppData.routingDay, AppData.CURRENT_DAY_TAG, getBaseContext());
-//                Helper.saveObject(AppData.route, AppData.CURRENT_ROUTE_TAG, getBaseContext());
-//                Helper.saveObject(AppData.addressList, AppData.ADDRESS_LIST_TAG, getBaseContext());
-//                Toast.makeText(getBaseContext(),"Восстановлено",Toast.LENGTH_SHORT).show();
-//            } catch (Exception ex) {
-//                Toast.makeText(getBaseContext(),ex.getMessage(),Toast.LENGTH_SHORT).show();
-//            }
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -219,7 +202,7 @@ public class MainActivity extends AppCompatActivity implements IFragmentsInterac
         try {
             AppData.routingDay = (RoutingDay) Helper.getObjectByTag(AppData.CURRENT_DAY_TAG, getBaseContext());//routingDay = (RoutingDay) deSerializeObject(CURRENT_DAY_TAG);
 
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
         try {
             AppData.addressList = (ArrayList<String>) Helper.getObjectByTag(AppData.ADDRESS_LIST_TAG, getBaseContext());
@@ -347,17 +330,5 @@ public class MainActivity extends AppCompatActivity implements IFragmentsInterac
                     (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
             mNotificationManager.notify(1, mBuilder.build());
         }
-    }
-
-    public Dialog onCreateDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(R.string.app_name)
-                .setItems(new String[]{"s", "q"}, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        // The 'which' argument contains the index position
-                        // of the selected item
-                    }
-                });
-        return builder.create();
     }
 }

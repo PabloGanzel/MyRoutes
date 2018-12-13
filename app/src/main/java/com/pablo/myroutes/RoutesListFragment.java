@@ -1,6 +1,5 @@
 package com.pablo.myroutes;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -142,8 +141,6 @@ public class RoutesListFragment extends ListFragment {
                 }
             }
         }
-        //} catch (Exception e) {
-        //}
     }
 
     private boolean delete() {
@@ -154,67 +151,63 @@ public class RoutesListFragment extends ListFragment {
         } else if (getListAdapter() == multiChoiceAdapter) {
 
             if (indexesSelectedObjects != null && indexesSelectedObjects.size() != 0) {
-                AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
+                if (indexesSelectedObjects.size() == getListView().getCount()) {
+                    Toast.makeText(getContext(), "Нельзя полностью очищать список", Toast.LENGTH_LONG).show();
+                } else {
+                    AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
 
-                alert.setTitle("Вы действительно хотите удалить данные?");
+                    alert.setTitle("Вы действительно хотите удалить данные?");
 
-                alert.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        try {
-                            if (dayId != -1) {
-                                int index = AppData.routingDaysList.indexOf(AppData.routingDaysList.get(dayId));
-                                for (int i = indexesSelectedObjects.size() - 1; i >= 0; i--) {
-                                    int ifd = indexesSelectedObjects.get(i);
-                                    routingDay.getListOfRoutes().remove(ifd);
-                                    routesTitleArrayList.remove(ifd);
+                    alert.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            try {
+                                if (dayId != -1) {
+                                    int index = AppData.routingDaysList.indexOf(AppData.routingDaysList.get(dayId));
+                                    for (int i = indexesSelectedObjects.size() - 1; i >= 0; i--) {
+                                        int ifd = indexesSelectedObjects.get(i);
+                                        routingDay.getListOfRoutes().remove(ifd);
+                                        routesTitleArrayList.remove(ifd);
+                                    }
+                                    AppData.routingDaysList.set(index, routingDay);
+                                    Helper.saveObject(AppData.routingDaysList, AppData.DAYS_LIST_TAG, getContext());
+                                    Toast.makeText(getContext(), R.string.deleted, Toast.LENGTH_SHORT).show();
+                                } else {
+                                    for (int i = indexesSelectedObjects.size() - 1; i >= 0; i--) {
+                                        int ifd = indexesSelectedObjects.get(i);
+                                        //routingDay.getListOfRoutes().remove(ifd);
+                                        //routesTitleArrayList.remove(ifd);
+                                        AppData.routingDay.getListOfRoutes().remove(ifd);
+                                        routesTitleArrayList.remove(ifd);
+                                    }
+                                    ////TODO: Решить проблему с пустым днем
+
+                                    Helper.saveObject(AppData.routingDay, AppData.CURRENT_DAY_TAG, getContext());
+                                    Toast.makeText(getContext(), R.string.deleted, Toast.LENGTH_SHORT).show();
                                 }
-                                AppData.routingDaysList.set(index, routingDay);
-                                Helper.saveObject(AppData.routingDaysList, AppData.DAYS_LIST_TAG, getContext());
-                                Toast.makeText(getContext(), R.string.deleted, Toast.LENGTH_SHORT).show();
-                            } else {
-                                for (int i = indexesSelectedObjects.size() - 1; i >= 0; i--) {
-                                    int ifd = indexesSelectedObjects.get(i);
-                                    //routingDay.getListOfRoutes().remove(ifd);
-                                    //routesTitleArrayList.remove(ifd);
-                                    AppData.routingDay.getListOfRoutes().remove(ifd);
-                                    routesTitleArrayList.remove(ifd);
-                                }
-
-                                ////TODO: Решить проблему с пустым днем
-                                if (AppData.routingDay.getListOfRoutes().size() == 0) {
-                                    //AppData.routingDay = new RoutingDay(AppData.routingDay.date, routingDay.getKilometrageOnBeginningDay());
-                                    //AppData.routingDay = null;
-
-
-                                }
-                                Helper.saveObject(AppData.routingDay, AppData.CURRENT_DAY_TAG, getContext());
-                                Toast.makeText(getContext(), R.string.deleted, Toast.LENGTH_SHORT).show();
-
+                            } catch (Exception ex) {
+                                Toast.makeText(getContext(), ex.toString(), Toast.LENGTH_SHORT).show();
                             }
-                        } catch (Exception ex) {
-                            Toast.makeText(getContext(), ex.toString(), Toast.LENGTH_SHORT).show();
+                            setListAdapter(singleChoiceAdapter);
+                            getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+                            indexesSelectedObjects = null;
                         }
-                        setListAdapter(singleChoiceAdapter);
-                        getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-                        indexesSelectedObjects = null;
-                    }
-                });
+                    });
 
-                alert.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int whichButton) {
-                        setListAdapter(singleChoiceAdapter);
-                        getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-                        indexesSelectedObjects = null;
-                        // Canceled.
-                    }
-                });
+                    alert.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int whichButton) {
+                            setListAdapter(singleChoiceAdapter);
+                            getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
+                            indexesSelectedObjects = null;
+                        }
+                    });
 
-                alert.show();
-            }
-            else{
+                    alert.show();
+                }
+            } else {
                 setListAdapter(singleChoiceAdapter);
                 getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-                indexesSelectedObjects = null;}
+                indexesSelectedObjects = null;
+            }
         }
         return true;
     }

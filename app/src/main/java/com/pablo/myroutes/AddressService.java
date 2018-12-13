@@ -12,11 +12,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-/**
- * Created by Paul on 10.12.2017.
- */
-
-public class AddressService {
+class AddressService {
     static private String RequestUrl = "https://geocode-maps.yandex.ru/1.x/?format=json&geocode=";
 
     static private String geoCoderRequest(String param) throws Exception {
@@ -76,7 +72,7 @@ public class AddressService {
         }
     }
 
-    static public String getAddressFromCoords(Double longitude, Double latitude) throws Exception {
+    static String getAddressFromCoords(Double longitude, Double latitude) throws Exception {
         return getAddressFromJson(geoCoderRequest(longitude.toString() + "," + latitude.toString()));
     }
 }

@@ -19,10 +19,6 @@ import android.widget.Toast;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
-/**
- * Created by Paul on 23.11.2017.
- */
-
 public class RoutingDaysListFragment extends ListFragment {
 
     private static final String ARG_PARAM = "param";
@@ -49,7 +45,7 @@ public class RoutingDaysListFragment extends ListFragment {
                 for (int i = 0; i < AppData.routingDaysList.size(); i++) {
                     dateList.add(AppData.routingDaysList.get(i).date);
                 }
-            } catch (Exception e) {
+            } catch (Exception ignored) {
             }
 
 
@@ -175,7 +171,7 @@ public class RoutingDaysListFragment extends ListFragment {
                         getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
                         indexesSelectedObjects = null;
 
-                        getActivity().onBackPressed();
+                        if (AppData.routingDaysList.size() == 0) getActivity().onBackPressed();
                     }
                 });
 

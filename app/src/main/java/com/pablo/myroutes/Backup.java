@@ -11,24 +11,13 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
-/**
- * Created by Paul on 11.12.2018.
- */
-
 class Backup {
 
-    static ArrayList<File> backupFiles;
+    private static ArrayList<File> backupFiles;
 
-    //    public ArrayList<String> getBackupFiles(){
-//            backupFilesPath = new ArrayList<>();
-//
-//        }
-//    }
     static String[] getFiles() {
         backupFiles = new ArrayList<>();
         ArrayList<String> backupFilesPath = new ArrayList<>();
-//        String directoryPath = Environment.getExternalStorageDirectory().getPath();
-//        File directory = new File(directoryPath);
         File[] files = new File(Environment
                 .getExternalStorageDirectory()
                 .getPath()).listFiles();
@@ -38,13 +27,6 @@ class Backup {
                 backupFilesPath.add(file.getName());
             }
         }
-//        String[] result = new String[files.length];
-//        for (int i = 0; i < files.length; i++) {
-//            if (files[i].getName().endsWith("backup")) { //routes.backup
-//                result[i] = files[i].getName();
-//            }
-////            result[i].
-//        }
         return backupFilesPath.toArray(new String[backupFiles.size()]);
     }
 
@@ -58,7 +40,7 @@ class Backup {
         return objects;
     }
 
-    public static boolean saveData(Object[] objects) throws IOException {
+    static boolean saveData(Object[] objects) throws IOException {
             FileOutputStream fos = new FileOutputStream(
                     new File(Environment.getExternalStorageDirectory(), Helper.getNumbericDate().concat(".rbackup")));
             ObjectOutputStream oos = new ObjectOutputStream(fos);

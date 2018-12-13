@@ -90,11 +90,8 @@ public class EditRouteFragment extends Fragment {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int hour, int minute) {
 
-//                        if(hour>=10){
-//                            textView.setText(hour+":"+minute);}
-//                        else{textView.setText("0"+hour+":"+minute);}
-                        String strHour = "";
-                        String strMinute = "";
+                        String strHour;
+                        String strMinute;
                         if (hour < 10) {
                             strHour = "0" + String.valueOf(hour);
                         } else strHour = String.valueOf(hour);
@@ -103,7 +100,6 @@ public class EditRouteFragment extends Fragment {
                         } else {
                             strMinute = String.valueOf(minute);
                         }
-                        // editTextTimeEnd.setText(hour+":"+minute);}
 
                         textView.setText(strHour + ":" + strMinute);
                     }
@@ -148,7 +144,7 @@ public class EditRouteFragment extends Fragment {
                     Toast.makeText(getActivity().getBaseContext(), "Сохранено", Toast.LENGTH_SHORT).show();
                     getActivity().onBackPressed();
                 } catch (Exception ex) {
-                    Toast.makeText(getContext(), ex.getMessage(), Toast.LENGTH_LONG);
+                    Toast.makeText(getContext(), ex.getMessage(), Toast.LENGTH_LONG).show();
                 }
             }
         });

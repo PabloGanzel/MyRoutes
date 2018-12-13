@@ -5,10 +5,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Paul on 24.07.2017.
- */
-
 class Route implements Serializable {
 
     private String startPoint;
@@ -29,44 +25,44 @@ class Route implements Serializable {
         this.startKilometrage = startKilometrage;
     }
 
-    void close(){
+    void close() {
         this.isOpen = false;
     }
 
-    public String getStartPoint() {
+    String getStartPoint() {
         return startPoint;
     }
 
-    public void setStartPoint(String startPoint) {
+    void setStartPoint(String startPoint) {
         this.startPoint = startPoint;
     }
 
-    public String getEndPoint() {
+    String getEndPoint() {
         return endPoint;
     }
 
-    public void setEndPoint(String endPoint) {
+    void setEndPoint(String endPoint) {
         this.endPoint = endPoint;
     }
 
-    public String getStartTime() {
+    String getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(String startTime) {
+    void setStartTime(String startTime) {
         this.startTime = startTime;
     }
 
-    public String getEndTime() {
+    String getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(String endTime) {
+    void setEndTime(String endTime) {
         this.endTime = endTime;
-        this.duration = Integer.parseInt(Helper.getTimeDifference(getStartTime(),getEndTime()));
+        this.duration = Integer.parseInt(Helper.getTimeDifference(getStartTime(), getEndTime()));
     }
 
-    public int getStartKilometrage() {
+    int getStartKilometrage() {
         return startKilometrage;
     }
 
@@ -74,26 +70,28 @@ class Route implements Serializable {
         this.startKilometrage = startKilometrage;
     }
 
-    public int getEndKilometrage() {
+    int getEndKilometrage() {
         return endKilometrage;
     }
 
-    public void setEndKilometrage(int endKilometrage) {
+    void setEndKilometrage(int endKilometrage) {
         this.endKilometrage = endKilometrage;
         this.length = this.endKilometrage - this.startKilometrage;
     }
 
-    public boolean isOpen() {
+    boolean isOpen() {
         return isOpen;
     }
 
-    public int getLength() {
+    int getLength() {
         return length;
     }
-    public void setLength(int length){
+
+    void setLength(int length) {
         this.length = length;
     }
-    public int getDuration(){
+
+    int getDuration() {
         return this.duration;
     }
 }
@@ -121,7 +119,7 @@ class RoutingDay implements Serializable{
         this.isOpen = false;
     }
 
-    public int getKilometrageOnBeginningDay() {
+    int getKilometrageOnBeginningDay() {
         return kilometrageOnBeginningDay;
     }
 
@@ -129,23 +127,23 @@ class RoutingDay implements Serializable{
         this.kilometrageOnBeginningDay = kilometrageOnBeginningDay;
     }
 
-    public int getKilometrageOnEndingDay() {
+    int getKilometrageOnEndingDay() {
         return kilometrageOnEndingDay;
     }
 
-    public void setKilometrageOnEndingDay(int kilometrageOnEndingDay) {
-        this.kilometrageOnEndingDay = kilometrageOnEndingDay;
+    void setKilometrageOnEndingDay(int kilometrageOnEndingDay) {
+         this.kilometrageOnEndingDay = kilometrageOnEndingDay;
     }
 
-    public List<Route> getListOfRoutes() {
+    List<Route> getListOfRoutes() {
         return listOfRoutes;
     }
 
-    public boolean isOpen() {
+    boolean isOpen() {
         return isOpen;
     }
 
-    public Route getLastRoute(){
+    Route getLastRoute(){
         return listOfRoutes.get(listOfRoutes.size()-1);
     }
 
