@@ -183,9 +183,13 @@ public class MainActivity extends AppCompatActivity implements IFragmentsInterac
             Toast.makeText(getBaseContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
         }
         if (AppData.route != null) {
-            if (AppData.route.isOpen()) showNotification("Маршрут не завершен", iconColor.Red);
-        } else if (AppData.routingDay != null) {
-            if (AppData.routingDay.isOpen()) showNotification("День не завершен", iconColor.Green);
+            if (AppData.route.isOpen()) {
+                showNotification("Маршрут не завершен", iconColor.Red);
+            } else if (AppData.routingDay != null) {
+                if (AppData.routingDay.isOpen()) {
+                    showNotification("День не завершен", iconColor.Green);
+                }
+            }
         }
     }
 

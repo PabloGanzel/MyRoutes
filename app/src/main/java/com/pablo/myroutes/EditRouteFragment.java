@@ -40,7 +40,7 @@ public class EditRouteFragment extends Fragment {
         if (getArguments() != null) {
             dayId = getArguments().getInt("dayId");
             routeId = getArguments().getInt("routeId");
-            if (dayId == 0) {
+            if (dayId == -1) {
                 route = AppData.routingDay.getListOfRoutes().get(routeId);
             } else {
                 route = AppData.routingDaysList.get(dayId)
@@ -133,7 +133,7 @@ public class EditRouteFragment extends Fragment {
                     route.setEndTime(textViewEndTime.getText().toString());
                     route.setLength(Integer.parseInt(editTextLength.getText().toString()));
                     //mListener.save();
-                    if (dayId == 0) {
+                    if (dayId == -1) {
                         AppData.routingDay.getListOfRoutes().set(routeId,route);
                         AppData.route = route;
                         Helper.saveObject(AppData.routingDay, AppData.CURRENT_DAY_TAG, getContext());

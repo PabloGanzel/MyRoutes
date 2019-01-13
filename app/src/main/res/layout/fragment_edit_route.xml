@@ -159,7 +159,7 @@
             android:id="@+id/buttonOk"
             android:layout_width="0dp"
             android:layout_height="60dp"
-            android:layout_marginLeft="12dp"
+            android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:text="ок"
             android:textSize="18sp"

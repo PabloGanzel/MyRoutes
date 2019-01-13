@@ -7,6 +7,8 @@ import java.util.List;
 
 class Route implements Serializable {
 
+    private static final long serialVersionUID = 6174046319194954038L;
+
     private String startPoint;
     private String endPoint;
     private String startTime;
@@ -97,6 +99,8 @@ class Route implements Serializable {
 }
 
 class RoutingDay implements Serializable{
+
+    private static final long serialVersionUID = -2506492275938281896L;
 
     String date;
     private int kilometrageOnBeginningDay;

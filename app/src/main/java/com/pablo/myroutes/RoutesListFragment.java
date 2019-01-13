@@ -59,8 +59,10 @@ public class RoutesListFragment extends ListFragment {
         //String[] routes = new String[routingDay.getListOfRoutes().size()];
         for (int i = 0; i < routingDay.getListOfRoutes().size(); i++) {
             Map map = new HashMap<>();
-            map.put("route",routingDay.getListOfRoutes().get(i).getStartPoint() + " - " + routingDay.getListOfRoutes().get(i).getEndPoint());
-            map.put("info", routingDay.getListOfRoutes().get(i).getLength() + " км., " + routingDay.getListOfRoutes().get(i).getDuration() + " мин.");
+            map.put("route",routingDay.getListOfRoutes().get(i).getStartPoint()
+                    + " - " + routingDay.getListOfRoutes().get(i).getEndPoint());
+            map.put("info", routingDay.getListOfRoutes().get(i).getLength()
+                    + " км., " + routingDay.getListOfRoutes().get(i).getDuration() + " мин.");
             routesTitleArrayList.add(map);
         }
 

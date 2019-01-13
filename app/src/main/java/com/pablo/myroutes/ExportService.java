@@ -1,6 +1,7 @@
 package com.pablo.myroutes;
 
 import android.os.Environment;
+import android.widget.Switch;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
@@ -10,6 +11,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.util.Calendar;
 
 class ExportService {
 
@@ -43,7 +45,7 @@ class ExportService {
         cell = row.getCell(65);
         cell.setCellValue(day.getKilometrageOnEndingDay());
 
-        SaveWorkbook(day.date + "(1)");
+        SaveWorkbook(day.date + "(1)",Environment.getExternalStorageDirectory()+"/Routes/"+getNameOfMonth(day));
 
         OpenWorkbook("2");
         Sheet sheet = workbook.getSheetAt(0);
@@ -66,7 +68,7 @@ class ExportService {
 
             rowIndex++;
         }
-        SaveWorkbook(day.date + "(2)");
+        SaveWorkbook(day.date + "(2)",Environment.getExternalStorageDirectory()+"/Routes/"+getNameOfMonth(day));
     }
 
     private static void OpenWorkbook(String filename) throws Exception {
@@ -75,11 +77,33 @@ class ExportService {
         workbook = new HSSFWorkbook(fis);
         fis.close();
     }
-    //TODO: сохранение в папки по месяцам
-    private static void SaveWorkbook(String filename) throws Exception {
-        FileOutputStream fs = new FileOutputStream(new File(Environment.getExternalStorageDirectory(), filename + ".xls"));
+    private static void SaveWorkbook(String filename, String directory) throws Exception {
+        File file = new File(directory);
+        if(!file.exists()){
+            file.mkdir();
+        }
+        FileOutputStream fs = new FileOutputStream(new File(directory, filename + ".xls"));
         workbook.write(fs);
         workbook.close();
         fs.close();
+    }
+
+    private static String getNameOfMonth(RoutingDay day){
+        String tmp = day.date.split(" ")[1];
+        switch(tmp){
+            case "января": return "Январь";
+            case "февраля": return "Февраль";
+            case "марта": return "Март";
+            case "апреля": return "Апрель";
+            case "мая": return "Май";
+            case "июня": return "Июнь";
+            case "июля": return "Июль";
+            case "августа": return "Август";
+            case "сентября": return "Сентябрь";
+            case "октября": return "Октябрь";
+            case "ноября": return "Ноябрь";
+            case "декабря": return "Декабрь";
+            default: return "Error";
+        }
     }
 }
