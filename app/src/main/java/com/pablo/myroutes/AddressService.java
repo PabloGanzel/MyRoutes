@@ -29,12 +29,12 @@ class AddressService {
                     sb.append(line + "\n");
                 }
             } catch (IOException e) {
-                e.printStackTrace();
+                //e.printStackTrace();
             } finally {
                 try {
                     inputStream.close();
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    //e.printStackTrace();
                 }
             }
             return sb.toString();
