@@ -1,9 +1,12 @@
 package com.pablo.myroutes;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Environment;
+import android.renderscript.Sampler;
 import android.support.v4.app.ListFragment;
 import android.support.v7.app.AlertDialog;
 import android.util.SparseBooleanArray;
@@ -28,6 +31,8 @@ public class RoutingDaysListFragment extends ListFragment {
 
     private ArrayList<Integer> indexesSelectedObjects;
     private ArrayList<String> dateList;
+
+    private ProgressDialog progressDialog;
 
     public static RoutingDaysListFragment newInstance() {
 
@@ -196,6 +201,11 @@ public class RoutingDaysListFragment extends ListFragment {
     }
 
     private boolean export() {
+        if (!Environment.getExternalStorageState().equals(
+                Environment.MEDIA_MOUNTED)){
+            Toast.makeText(getContext(),"Ошибка доступа к карте памяти\n" + Environment.getExternalStorageState(),Toast.LENGTH_SHORT).show();
+            return false;
+        }
         if (getListAdapter() == singleChoiceAdapter) {
             Toast.makeText(getContext(), R.string.choice_objects_for_exporting, Toast.LENGTH_SHORT).show();
             setListAdapter(multiChoiceAdapter);
@@ -209,10 +219,22 @@ public class RoutingDaysListFragment extends ListFragment {
                         //for (int i = indexesSelectedObjects.size() - 1; i >= 0; i--) {
                         rdl.add(AppData.routingDaysList.get(indexesSelectedObjects.get(i)));
                     }
+
+                    progressDialog = new ProgressDialog(getContext());
+                    progressDialog.setIndeterminate(false);
+                    progressDialog.setMax(rdl.size());
+                    progressDialog.setTitle("Экспорт");
+                    progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+
+                    //if (!Environment.getExternalStorageState().equals(
+                    ///        Environment.MEDIA_MOUNTED)) {
+                    //    Toast.makeText(getContext(),"Ошибка доступа к карте памяти\n" + Environment.getExternalStorageState(),Toast.LENGTH_SHORT).show();
+                    //}
+                    //else new ExportAsyncTask().execute(rdl.toArray(new RoutingDay[rdl.size()]));
                     new ExportAsyncTask().execute(rdl.toArray(new RoutingDay[rdl.size()]));
 
                 } catch (Exception ex) {
-                    Toast.makeText(getContext(), ex.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), ex.toString(), Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -224,27 +246,40 @@ public class RoutingDaysListFragment extends ListFragment {
     }
 //
 
-    private class ExportAsyncTask extends AsyncTask<RoutingDay[], String, String> {
+    private class ExportAsyncTask extends AsyncTask<RoutingDay[], Integer, String> {
 
         @Override
         protected void onPreExecute() {
-            Toast.makeText(getContext(), "Экспорт будет произведен в фоновом режиме", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getContext(), "Экспорт будет произведен в фоновом режиме", Toast.LENGTH_SHORT).show();
+            progressDialog.show();
         }
 
         @Override
         protected String doInBackground(RoutingDay[]... routingDays) {
             try {
-                ExportService.Export(routingDays[0]);
+                //ExportService.Export(routingDays[0]);
+                for (int i = 0; i<routingDays[0].length;i++){
+                    ExportService.Export(routingDays[0][i]);
+                    //Thread.sleep(1000);
+                    //publishProgress((int)((double)(i+1)/routingDays[0].length*100));
+                    publishProgress(i+1);
+                }
                 return "Экспорт завершен";
             } catch (FileNotFoundException e) {
-                return "Ошибка доступа к карте памяти";
+                return "Отсутствует файл шаблона";
             } catch (Exception e) {
                 return e.getMessage();
             }
         }
 
         @Override
+        protected void onProgressUpdate(Integer... count){
+            progressDialog.incrementProgressBy(count[0]);
+        }
+
+        @Override
         protected void onPostExecute(String result) {
+            progressDialog.dismiss();
             Toast.makeText(getContext(), result, Toast.LENGTH_SHORT).show();
         }
     }
