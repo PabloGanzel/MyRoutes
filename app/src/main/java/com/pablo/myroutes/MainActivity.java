@@ -220,6 +220,7 @@ public class MainActivity extends AppCompatActivity implements IFragmentsInterac
     @Override
     public void openRoutingDay(int kilometrageStartDay) {
         AppData.routingDay = new RoutingDay(Helper.getDate(), kilometrageStartDay);
+        setTitle(AppData.routingDay.date);
         openRoute();
     }
 
