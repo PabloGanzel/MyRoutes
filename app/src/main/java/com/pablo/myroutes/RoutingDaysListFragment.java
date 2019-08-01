@@ -168,7 +168,9 @@ public class RoutingDaysListFragment extends ListFragment {
                             }
                             Helper.saveObject(AppData.routingDaysList, AppData.DAYS_LIST_TAG, getContext());
                             //Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
-                            Toast.makeText(getContext(), R.string.deleted, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(),
+                                    R.string.deleted+": "+String.valueOf(indexesSelectedObjects.size()),
+                                    Toast.LENGTH_SHORT).show();
                         } catch (Exception ex) {
                             Toast.makeText(getContext(), ex.getMessage(), Toast.LENGTH_SHORT).show();
                         }
@@ -250,6 +252,7 @@ public class RoutingDaysListFragment extends ListFragment {
 
         @Override
         protected void onPreExecute() {
+            Helper.readCurrentDocumentNumberFromFile();
             //Toast.makeText(getContext(), "Экспорт будет произведен в фоновом режиме", Toast.LENGTH_SHORT).show();
             progressDialog.show();
         }
@@ -259,7 +262,7 @@ public class RoutingDaysListFragment extends ListFragment {
             try {
                 //ExportService.Export(routingDays[0]);
                 for (int i = 0; i<routingDays[0].length;i++){
-                    ExportService.Export(routingDays[0][i]);
+                    ExportService.NewExport(routingDays[0][i]);
                     //Thread.sleep(1000);
                     //publishProgress((int)((double)(i+1)/routingDays[0].length*100));
                     publishProgress(i+1);
@@ -280,6 +283,7 @@ public class RoutingDaysListFragment extends ListFragment {
         @Override
         protected void onPostExecute(String result) {
             progressDialog.dismiss();
+            Helper.writeCurrentDocumentNumberForFile();
             Toast.makeText(getContext(), result, Toast.LENGTH_SHORT).show();
         }
     }

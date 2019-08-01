@@ -1,27 +1,25 @@
 package com.pablo.myroutes;
 
 import android.content.Context;
+import android.os.Environment;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-
+import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-
 import java.util.Calendar;
 import java.util.Locale;
 import java.util.regex.Pattern;
 
 public class Helper {
+    static int CURRENT_DOCUMENT_NUMBER = 0;
 
     private static Pattern pattern = Pattern.compile("([01]?\\d|2[0-4]):([0-5]\\d)");
 
@@ -105,6 +103,45 @@ public class Helper {
         }
         catch (ParseException ex){
             return false;
+        }
+    }
+
+
+    static void readCurrentDocumentNumberFromFile() {
+        File file = new File(Environment.getExternalStorageDirectory(), "number.routes");
+        FileInputStream fileInputStream;
+        InputStreamReader inputStreamReader;
+        BufferedReader bufferedReader;
+
+        if (file.exists()) {
+            try {
+                fileInputStream = new FileInputStream(file);
+                inputStreamReader = new InputStreamReader(fileInputStream);
+                bufferedReader = new BufferedReader(inputStreamReader);
+
+                CURRENT_DOCUMENT_NUMBER = Integer.parseInt(bufferedReader.readLine());
+
+                bufferedReader.close();
+                inputStreamReader.close();
+                fileInputStream.close();
+
+            } catch (IOException ignored) { }
+        }
+
+        //return "not implemented!";
+    }
+    static String getCurrentDocumentNumber(){
+        return String.format("%08d", CURRENT_DOCUMENT_NUMBER++);
+    }
+
+    static void writeCurrentDocumentNumberForFile(){
+        File file = new File(Environment.getExternalStorageDirectory(), "number.routes");
+        try {
+            FileWriter writer = new FileWriter(file, false);
+            writer.write(String.valueOf(CURRENT_DOCUMENT_NUMBER));
+            writer.flush();
+            writer.close();
+        } catch (IOException e) {
         }
     }
 }

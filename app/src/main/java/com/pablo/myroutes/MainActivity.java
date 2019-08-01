@@ -1,6 +1,5 @@
 package com.pablo.myroutes;
 
-import android.app.Dialog;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -15,8 +14,10 @@ import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -126,10 +127,42 @@ public class MainActivity extends AppCompatActivity implements IFragmentsInterac
             return true;
         }
 
+        if (id == R.id.edit_document_number) {
+
+            Helper.readCurrentDocumentNumberFromFile();
+
+            AlertDialog.Builder alert = new AlertDialog.Builder(this);
+            alert.setTitle("Текущий номер");
+
+            final EditText input = new EditText(this);
+            input.setText(String.valueOf(Helper.CURRENT_DOCUMENT_NUMBER));
+            input.setInputType(InputType.TYPE_CLASS_NUMBER);
+            alert.setView(input);
+
+            alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int whichButton) {
+                    Helper.CURRENT_DOCUMENT_NUMBER = Integer.parseInt(input.getText().toString());
+                    Helper.writeCurrentDocumentNumberForFile();
+                    Toast.makeText(getBaseContext(),
+                            "Номер "+ String.valueOf(Helper.CURRENT_DOCUMENT_NUMBER)+" сохранен",
+                            Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            alert.setNegativeButton("Отмена", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int whichButton) {
+                }
+            });
+
+            alert.show();
+        }
+
         if (id == R.id.save) {
             try {
                 Backup.saveData(new Object[]{AppData.routingDaysList, AppData.routingDay, AppData.route, AppData.addressList});
-                Toast.makeText(getBaseContext(), "Сохранено " + Helper.getNumbericDate() + ".rbackup", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getBaseContext(),
+                        "Сохранено " + Helper.getNumbericDate() + ".rbackup",
+                        Toast.LENGTH_SHORT).show();
             } catch (IOException ex) {
                 Toast.makeText(getBaseContext(), ex.getMessage(), Toast.LENGTH_SHORT).show();
             }

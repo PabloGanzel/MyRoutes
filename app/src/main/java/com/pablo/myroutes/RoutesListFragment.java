@@ -172,7 +172,9 @@ public class RoutesListFragment extends ListFragment {
                                     }
                                     AppData.routingDaysList.set(index, routingDay);
                                     Helper.saveObject(AppData.routingDaysList, AppData.DAYS_LIST_TAG, getContext());
-                                    Toast.makeText(getContext(), R.string.deleted, Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getContext(),
+                                            R.string.deleted+": "+String.valueOf(indexesSelectedObjects.size()),
+                                            Toast.LENGTH_SHORT).show();
                                 } else {
                                     for (int i = indexesSelectedObjects.size() - 1; i >= 0; i--) {
                                         int ifd = indexesSelectedObjects.get(i);

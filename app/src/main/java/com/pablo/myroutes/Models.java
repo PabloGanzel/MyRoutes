@@ -97,7 +97,7 @@ class Route implements Serializable {
         return this.duration;
     }
 }
-
+    //TODO: переделать дату
 class RoutingDay implements Serializable{
 
     private static final long serialVersionUID = -2506492275938281896L;
