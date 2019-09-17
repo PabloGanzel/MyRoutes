@@ -135,7 +135,7 @@ public class EditRouteFragment extends Fragment {
                     //mListener.save();
                     if (dayId == -1) {
                         AppData.routingDay.getListOfRoutes().set(routeId,route);
-                        AppData.route = route;
+                        //AppData.route = route;
                         Helper.saveObject(AppData.routingDay, AppData.CURRENT_DAY_TAG, getContext());
                     } else {
                         AppData.routingDaysList.get(dayId).getListOfRoutes().set(routeId, route);
